@@ -1,0 +1,20 @@
+{
+  "name": "Elm-dev-env",
+  "version": "0.0.1",
+  "description": "This is a barebone project to user elm-react with comodities",
+  "main": "bin/server",
+  "author": "COYA AG",
+  "license": "MIT",
+  "scripts": {
+    "start": "bin/server",
+    "server": "bin/server"
+  },
+  "devDependencies": {
+    "ejs": "^2.5.6",
+    "livereload": "^0.6.2",
+    "minimist": "^1.2.0"
+  },
+  "dependencies": {
+    "elm": "^0.18.0"
+  }
+}

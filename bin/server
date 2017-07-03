@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+// System
+const { spawn } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
+// Libs
+const argv = require('minimist')(process.argv.slice(2));
+const ejs = require('../node_modules/ejs/ejs.min.js');
+
+// Exit on help
+if (argv.help) {
+  console.log('You can use this flags together with this script:');
+  console.log('  -h  to change the default hostname 0.0.0.0');
+  console.log('  -p  to change the default port 3000');
+  console.log('  -r to change the default livereload port 35729');
+  console.log('  -d to change the default livereload directory src');
+  process.exit();
+};
+
+
+// Loading configuration file
+const confTemplatePath = 'config/application.js.ejs';
+const defConfTemplatePath = 'config/reference.js.ejs';
+const confPath = 'src/config.js';
+
+var confTemplate;
+
+if (fs.existsSync(confTemplatePath)) {
+  console.log(`Loading custom configuration file from ${confTemplatePath}`);
+
+  confTemplate =
+    fs.readFileSync(path.join(__dirname, '..', confTemplatePath) , 'utf8');
+} else {
+  console.log(`Loading default configuration file from ${defConfTemplatePath}`);
+
+  confTemplate =
+    fs.readFileSync(path.join(__dirname, '..', defConfTemplatePath) , 'utf8');
+};
+
+const config = ejs.render(confTemplate, {env: process.env});
+
+fs.writeFile(path.join(__dirname, '..', confPath), config, function(err) {
+  if(err) {
+    return console.log(err);
+  }
+
+  console.log(`Configuration successfully loaded in: ${confPath}`);
+});
+
+// Parse arguments and start the servers
+const elmReactorCMD =
+  path.join(__dirname, '..', 'node_modules/elm/binwrappers/elm-reactor');
+const elmReactorArgv = ['-p', argv.p || 3000, '-a', argv.h || '0.0.0.0'];
+const elmReactor = spawn(elmReactorCMD, elmReactorArgv);
+const elmReactorLog = function(data) { console.log(`elm-reactor: ${data}`) };
+
+elmReactor.stdout.on('data', (data) => { elmReactorLog(data) });
+elmReactor.stderr.on('data', (data) => { elmReactorLog(data) });
+elmReactor.on('close', (code) => {
+  console.log(`elm-reactor: exited with code ${code}`);
+});
+
+const livereloadCMD =
+  path.join(__dirname, '..', 'node_modules/livereload/bin/livereload.js');
+const livereloadArgv = [argv.d || 'src',' -e', 'elm', ' -p', argv.r || 35729]
+const livereload = spawn(livereloadCMD, livereloadArgv);
+const livereloadLog = function(data) { console.log(`livereload: ${data}`) };
+
+livereload.stdout.on('data', (data) => { livereloadLog(data) });
+livereload.stderr.on('data', (data) => { livereloadLog(data) });
+livereload.on('close', (code) => {
+  console.log(`livereload: exited with code ${code}`);
+});
