@@ -51,7 +51,7 @@ fs.writeFile(path.join(__dirname, '..', confPath), config, function(err) {
 
 // Parse arguments and start the servers
 const elmReactorCMD =
-  path.join(__dirname, '..', 'node_modules/elm/binwrappers/elm-reactor');
+  path.join(__dirname, '..', 'node_modules/.bin/elm-reactor');
 const elmReactorArgv = ['-p', argv.p || 3000, '-a', argv.h || '0.0.0.0'];
 const elmReactor = spawn(elmReactorCMD, elmReactorArgv);
 const elmReactorLog = function(data) { console.log(`elm-reactor: ${data}`) };
@@ -63,7 +63,7 @@ elmReactor.on('close', (code) => {
 });
 
 const livereloadCMD =
-  path.join(__dirname, '..', 'node_modules/livereload/bin/livereload.js');
+  path.join(__dirname, '..', 'node_modules/.bin/livereload');
 const livereloadArgv = [argv.d || 'src',' -e', 'elm', ' -p', argv.r || 35729]
 const livereload = spawn(livereloadCMD, livereloadArgv);
 const livereloadLog = function(data) { console.log(`livereload: ${data}`) };
