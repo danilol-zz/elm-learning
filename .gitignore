@@ -31,6 +31,7 @@ bower_components
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+build/
 
 # Dependency directories
 node_modules/
@@ -57,9 +58,11 @@ typings/
 
 # dotenv environment variables file
 .env
+.envrc
 
 # Custom configuration file
-config/config.js.ejs
+config/application.js.ejs
 
 # Generated configuration file
 src/config.js
+src/index.html

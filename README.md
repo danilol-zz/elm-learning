@@ -47,4 +47,4 @@ $ bin/server --help
 $ yarn run server -- --help
 ```
 
-**WARNING:** pleas add --help flag to the new scripts that you add to flow the same patterns
+**WARNING:** please add --help flag to add to maintain the same patterns
