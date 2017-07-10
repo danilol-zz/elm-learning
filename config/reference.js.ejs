@@ -8,10 +8,10 @@
 // Adding a backend url by default or from an environment variable
 //
 // window.config = {
-//   backendURL = <%= env.BACKEND_URL || 'http://localhost:9000' %>
+//   backendURL: <%= env.BACKEND_URL || 'http://localhost:9000' %>
 // }
 <% } %>
 
 window.config = {
-  title: "Hello world"
+  title: <%= env.TITLE || "Hello world" %>
 }

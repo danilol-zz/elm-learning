@@ -21,7 +21,7 @@
       <div style="font-size: 1em">With new projects, I need a bunch of extra time to download packages.</div>
     </div>
   <% } %>
-</body>
+  </body>
 
     <% if (build) { %>
       <script type="text/javascript" src="/application.js"></script>
@@ -31,11 +31,14 @@
 
   <!-- Removes splash and starts elm app. -->
   <script type="text/javascript">
-  <% if (!build) { %>
+  <% if (build) { %>
+    Elm.Application.fullscreen(window.config);
+  <% } else { %>
     while (document.body.firstChild) {
       document.body.removeChild(document.body.firstChild);
     }
-  <% } %>
+
     runElmProgram(window.config);
+  <% } %>
   </script>
 </html>

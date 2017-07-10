@@ -4,11 +4,12 @@
   "description": "This is a backbone project to use elm-reactor with commodities",
   "main": "bin/server",
   "author": "COYA AG",
-  "license": "MIT",
+  "license": "GPLv3",
   "scripts": {
     "start": "bin/server",
     "server": "bin/server",
-    "build": "bin/build"
+    "build": "bin/build",
+    "test": "lobo"
   },
   "devDependencies": {
     "livereload": "^0.6.2"
@@ -16,6 +17,9 @@
   "dependencies": {
     "ejs": "^2.5.6",
     "elm": "^0.18.0",
+    "elm-test": "^0.18.7",
+    "lobo": "^0.2.3",
+    "lobo-cli": "^0.0.2",
     "minimist": "^1.2.0"
   }
 }
