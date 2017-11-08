@@ -4,7 +4,7 @@ import Html exposing (..)
 
 
 type alias Model =
-    { title: String
+    { title : String
     }
 
 
@@ -13,7 +13,7 @@ type alias Model =
 
 
 type alias Flags =
-    { title: String
+    { title : String
     }
 
 
